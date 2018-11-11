@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colored (1.2)
+    command_line_reporter (4.0.0)
+      colored (>= 1.2)
+    minitest (5.11.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  command_line_reporter (>= 3.0)
+  minitest
+
+BUNDLED WITH
+   1.17.1
