@@ -1,8 +1,10 @@
 # https://en.wikipedia.org/wiki/Tree_sort
 
-require File.expand_path('../../tree/binary', __FILE__)
+require_relative '../../data_structures/tree/binary'
 
 def tree_sort(array)
+  return array if array.length <= 1
+
   tree = BinaryTree.new
   array.each { |el| tree.insert(el) }
 

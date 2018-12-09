@@ -1,6 +1,8 @@
 # https://en.wikipedia.org/wiki/Merge_sort
 
 def merge_sort(array)
+  return array if array.length <= 1
+
   n = array.length
   return array if n <= 1
 

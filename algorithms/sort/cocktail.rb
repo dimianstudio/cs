@@ -1,6 +1,8 @@
 # https://en.wikipedia.org/wiki/Cocktail_shaker_sort
 
 def cocktail_sort(array)
+  return array if array.length <= 1
+
   left_index = 0
   right_index = array.length - 1
 

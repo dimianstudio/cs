@@ -1,6 +1,7 @@
 # https://en.wikipedia.org/wiki/Counting_sort
 
 def counting_sort(array)
+  return array if array.length <= 1
   counts = Array.new(array.length) { 0 }
 
   array.each do |number|

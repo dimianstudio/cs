@@ -6,3 +6,4 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 gem 'minitest'
 gem 'command_line_reporter', '>=3.0'
+gem 'progress_bar'

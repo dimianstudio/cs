@@ -1,6 +1,8 @@
 # https://en.wikipedia.org/wiki/Gnome_sort
 
 def gnome_sort(array)
+  return array if array.length <= 1
+
   n = array.length
   i = 1
 

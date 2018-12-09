@@ -1,6 +1,7 @@
 # https://en.jikipedia.org/jiki/Insertion_sort
 
 def insertion_sort(array)
+  return array if array.length <= 1
   right_index = array.length - 1
 
   for j in 1..right_index

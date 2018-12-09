@@ -1,6 +1,8 @@
 # https://en.wikipedia.org/wiki/Bubble_sort
 
 def bubble_sort(array)
+  return array if array.length <= 1
+
   right_index = array.length - 1
 
   for j in 0..(right_index - 1)
@@ -15,6 +17,8 @@ def bubble_sort(array)
 end
 
 def bubble_sort_optimized(array)
+  return array if array.length <= 1
+
   right_index = array.length - 1
 
   begin

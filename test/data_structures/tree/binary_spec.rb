@@ -1,5 +1,5 @@
 require 'test_helper'
-require_relative '../../tree/binary'
+require_relative '../../../data_structures/tree/binary'
 
 describe BinaryTree do
   subject { BinaryTree.new }

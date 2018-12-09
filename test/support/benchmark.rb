@@ -1,4 +1,5 @@
 require 'command_line_reporter'
+require 'progress_bar'
 
 class Benchmark
   include CommandLineReporter
@@ -9,6 +10,7 @@ class Benchmark
 
   def initialize(range)
     @range = range
+    @samples_factory = nil
     @reporters = []
   end
 
@@ -18,31 +20,61 @@ class Benchmark
     benchmark.start
   end
 
+  def samples_factory(&block)
+    @samples_factory = block
+  end
+
   def report(label, &block)
     @reporters << { label: label, block: block }
   end
 
   def start
+    raise ArgumentError, 'x.samples_factory if not defined' unless @samples_factory
+
+    progress_bar = ProgressBar.new(@reporters.size * @range.size)
+
+    samples = {}
+
+    @range.each do |n|
+      samples[n] = @samples_factory.call(n)
+    end
+
+    results = []
+
+    @reporters.each do |reporter|
+      result = [reporter[:label]]
+
+      @range.each do |n|
+        sample = samples[n].dup
+        start = Time.now
+        reporter[:block].call(sample)
+        result << Time.now - start
+        progress_bar.increment!
+      end
+
+      results << result
+    end
+
+    puts
+
+    print_results(results)
+  end
+
+  private
+
+  def print_results(results)
     label_width = @reporters.map { |r| r[:label].size }.max
 
     table(border: true) do
       row(header: true) do
         column('', width: label_width + 3)
-
-        @range.each do |n|
-          column(n, width: 12)
-        end
+        @range.each { |n| column(n, width: 12) }
       end
 
-      @reporters.each do |reporter|
+      results.sort_by(&:last).each do |result|
         row do
-          column(reporter[:label])
-
-          @range.each do |n|
-            start = Time.now
-            reporter[:block].call(n)
-            column(Time.now - start)
-          end
+          column(result.shift)
+          result.each { |value| column(value) }
         end
       end
     end
